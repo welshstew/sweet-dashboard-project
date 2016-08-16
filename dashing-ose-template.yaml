@@ -1,0 +1,154 @@
+apiVersion: v1
+kind: Template
+metadata:
+  creationTimestamp: null
+  name: dashing
+objects:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: sweet-dashboard-project
+    name: dashing
+  spec:
+    ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: sweet-dashboard-project
+      deploymentconfig: sweet-dashboard-project
+    sessionAffinity: None
+    type: ClusterIP
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: sweet-dashboard-project
+    name: sweet-dashboard-project
+  spec:
+    replicas: 1
+    selector:
+      app: sweet-dashboard-project
+      deploymentconfig: sweet-dashboard-project
+    strategy:
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: sweet-dashboard-project
+          deploymentconfig: sweet-dashboard-project
+      spec:
+        containers:
+        - image: "${IS_PULL_NAMESPACE}/sweet-dashboard-project:${IS_TAG}"
+          imagePullPolicy: Always
+          name: sweet-dashboard-project
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - sweet-dashboard-project
+        from:
+          kind: ImageStreamTag
+          name: sweet-dashboard-project:latest
+      type: ImageChange
+  status: {}
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: sweet-dashboard-project
+    name: sweet-dashboard-project
+  spec:
+    output:
+      to:
+        kind: ImageStreamTag
+        name: sweet-dashboard-project:${IS_TAG}
+    postCommit: {}
+    resources: {}
+    source:
+      git:
+        uri: "${GIT_REPO}"
+      secrets: []
+      type: Git
+    strategy:
+      sourceStrategy:
+        from:
+          kind: DockerImage
+          name: rhscl/ruby-23-rhel7
+      type: Source
+- apiVersion: "v1"
+  kind: "ImageStream"
+  metadata:
+    annotations: {}
+    labels:
+      app: sweet-dashboard-project
+    name: sweet-dashboard-project
+  spec:
+    dockerImageRepository: "${REGISTRY}/${IS_PULL_NAMESPACE}/sweet-dashboard-project"
+    tags:
+    - annotations:
+        tags: "${IS_TAG}"
+      from:
+        kind: "ImageStreamTag"
+        name: "sweet-dashboard-project"
+      name: "${IS_TAG}"    
+- apiVersion: v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    creationTimestamp: null
+    labels:
+      app: sweet-dashboard-project
+    name: dashing
+  spec:
+    host: "${ROUTE_NAME}"
+    port:
+      targetPort: http
+    to:
+      kind: Service
+      name: dashing
+parameters:
+- name: "IS_TAG"
+  value: "latest"
+- name: "REGISTRY"
+  value: "172.30.233.53:5000"
+- name: "IS_PULL_NAMESPACE"
+  value: "whatever"
+- name: "GIT_REPO"
+  value: "https://github.com/welshstew/sweet-dashboard-project.git"
+- name: "ROUTE_NAME"
+  value: "dashing-whatever.rhel-cdk.10.1.2.2.xip.io"
