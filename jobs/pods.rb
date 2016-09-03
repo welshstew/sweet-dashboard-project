@@ -2,7 +2,8 @@ require 'net/http'
 require 'uri'
 require 'json'
 
-server = "https://10.1.2.2"
+#server = "https://10.1.2.2"
+server = "https://kubernetes.default.svc"
 namespace = "origin-metrics"
 tokenFilename = "/var/run/secrets/kubernetes.io/serviceaccount/token"
 token = "QZ9lcQNU8fjcbnCHSJ1UfPucBdPqT2j4fC469SqfZi4"
