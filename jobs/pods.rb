@@ -12,9 +12,7 @@ log = Logger.new(STDOUT)
 log.level = Logger::INFO
 
 #get the token for kubernetes access in the pod..!
-if File.exists?(tokenFilename){
-	token = IO.read(tokenFilename)
-}
+if File.exists?(tokenFilename) then token = IO.read(tokenFilename) end
 
 SCHEDULER.every '30s' do
 
@@ -28,9 +26,9 @@ SCHEDULER.every '30s' do
   # Convert to JSON
   j = JSON[response.body]
 
-	hrows = [
-	  { cols: [ {value: 'PodName'}, {value: 'Status'}, {value: 'RestartCount'} ] }
-	]
+  hrows = [
+    { cols: [ {value: 'PodName'}, {value: 'Status'}, {value: 'RestartCount'} ] }
+  ]
 
   pods = []
 
@@ -42,4 +40,3 @@ SCHEDULER.every '30s' do
 
   send_event('pods', { hrows: hrows, rows: pods } )
 end
-
