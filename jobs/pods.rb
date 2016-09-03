@@ -4,15 +4,17 @@ require 'json'
 
 server = "https://10.1.2.2"
 namespace = "origin-metrics"
+tokenFilename = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+token = "QZ9lcQNU8fjcbnCHSJ1UfPucBdPqT2j4fC469SqfZi4"
 
 log = Logger.new(STDOUT)
 log.level = Logger::INFO
 
 #get the token for kubernetes access in the pod..!
-token = IO.read('/var/run/secrets/kubernetes.io/serviceaccount/token')
-#token = "QZ9lcQNU8fjcbnCHSJ1UfPucBdPqT2j4fC469SqfZi4"
+if File.exists?(tokenFilename){
+	token = IO.read(tokenFilename)
+}
 
-# :first_in sets how long it takes before the job is first run. In this case, it is run immediately
 SCHEDULER.every '30s' do
 
   url = URI.parse("#{server}/api/v1/namespaces/#{namespace}/pods")
