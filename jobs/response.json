@@ -1,0 +1,2263 @@
+{
+  "kind": "PodList",
+  "apiVersion": "v1",
+  "metadata": {
+    "selfLink": "/api/v1/namespaces/origin-metrics/pods",
+    "resourceVersion": "15228"
+  },
+  "items": [
+    {
+      "metadata": {
+        "name": "broker-amq-1-l3v0j",
+        "generateName": "broker-amq-1-",
+        "namespace": "origin-metrics",
+        "selfLink": "/api/v1/namespaces/origin-metrics/pods/broker-amq-1-l3v0j",
+        "uid": "2838e399-6fbb-11e6-b815-525400825485",
+        "resourceVersion": "15050",
+        "creationTimestamp": "2016-08-31T20:40:30Z",
+        "labels": {
+          "application": "broker",
+          "deployment": "broker-amq-1",
+          "deploymentConfig": "broker-amq",
+          "deploymentconfig": "broker-amq"
+        },
+        "annotations": {
+          "kubernetes.io/created-by": "{\"kind\":\"SerializedReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"ReplicationController\",\"namespace\":\"origin-metrics\",\"name\":\"broker-amq-1\",\"uid\":\"2624ab04-6fbb-11e6-b815-525400825485\",\"apiVersion\":\"v1\",\"resourceVersion\":\"5758\"}}\n",
+          "openshift.io/deployment-config.latest-version": "1",
+          "openshift.io/deployment-config.name": "broker-amq",
+          "openshift.io/deployment.name": "broker-amq-1",
+          "openshift.io/generated-by": "OpenShiftNewApp",
+          "openshift.io/scc": "anyuid"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "default-token-qefio",
+            "secret": {
+              "secretName": "default-token-qefio"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "broker-amq",
+            "image": "registry.access.redhat.com/jboss-amq-6/amq62-openshift@sha256:6397861d3b8d52f29c5e157b00a6999b8baf4ac7215af368a7b7d90ef6595a10",
+            "ports": [
+              {
+                "name": "jolokia",
+                "containerPort": 8778,
+                "protocol": "TCP"
+              },
+              {
+                "name": "amqp",
+                "containerPort": 5672,
+                "protocol": "TCP"
+              },
+              {
+                "name": "mqtt",
+                "containerPort": 1883,
+                "protocol": "TCP"
+              },
+              {
+                "name": "stomp",
+                "containerPort": 61613,
+                "protocol": "TCP"
+              },
+              {
+                "name": "tcp",
+                "containerPort": 61616,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "AMQ_USER",
+                "value": "admin"
+              },
+              {
+                "name": "AMQ_PASSWORD",
+                "value": "admin"
+              },
+              {
+                "name": "AMQ_TRANSPORTS",
+                "value": "openwire"
+              },
+              {
+                "name": "AMQ_QUEUES",
+                "value": "queue.one"
+              },
+              {
+                "name": "AMQ_TOPICS"
+              },
+              {
+                "name": "MQ_SERIALIZABLE_PACKAGES"
+              },
+              {
+                "name": "AMQ_MESH_DISCOVERY_TYPE",
+                "value": "kube"
+              },
+              {
+                "name": "AMQ_MESH_SERVICE_NAME",
+                "value": "broker-amq-tcp"
+              },
+              {
+                "name": "AMQ_MESH_SERVICE_NAMESPACE",
+                "valueFrom": {
+                  "fieldRef": {
+                    "apiVersion": "v1",
+                    "fieldPath": "metadata.namespace"
+                  }
+                }
+              },
+              {
+                "name": "AMQ_STORAGE_USAGE_LIMIT",
+                "value": "100 gb"
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "default-token-qefio",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "/bin/bash",
+                  "-c",
+                  "/opt/amq/bin/readinessProbe.sh"
+                ]
+              },
+              "timeoutSeconds": 1,
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "failureThreshold": 3
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "Always",
+            "securityContext": {
+              "capabilities": {
+                "drop": [
+                  "KILL",
+                  "MKNOD",
+                  "SYS_CHROOT"
+                ]
+              },
+              "privileged": false,
+              "seLinuxOptions": {
+                "level": "s0:c8,c7"
+              }
+            }
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 60,
+        "dnsPolicy": "ClusterFirst",
+        "host": "rhel-cdk",
+        "serviceAccountName": "default",
+        "serviceAccount": "default",
+        "nodeName": "rhel-cdk",
+        "securityContext": {
+          "seLinuxOptions": {
+            "level": "s0:c8,c7"
+          }
+        },
+        "imagePullSecrets": [
+          {
+            "name": "default-dockercfg-zrjt3"
+          }
+        ]
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Ready",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2016-08-31T20:48:03Z"
+          }
+        ],
+        "hostIP": "10.0.2.15",
+        "podIP": "172.17.0.10",
+        "startTime": "2016-08-31T20:40:30Z",
+        "containerStatuses": [
+          {
+            "name": "broker-amq",
+            "state": {
+              "running": {
+                "startedAt": "2016-08-31T20:47:54Z"
+              }
+            },
+            "lastState": {},
+            "ready": true,
+            "restartCount": 0,
+            "image": "registry.access.redhat.com/jboss-amq-6/amq62-openshift@sha256:6397861d3b8d52f29c5e157b00a6999b8baf4ac7215af368a7b7d90ef6595a10",
+            "imageID": "docker://563bd64603e26b0f6d8e43ab3d9234ba8c2036aea06a710c311f6ca6d9314e6f",
+            "containerID": "docker://f0d50cd51971637d80213f526bd1b87f7248d13d3faca7030c7e3d29d410322d"
+          }
+        ]
+      }
+    },
+    {
+      "metadata": {
+        "name": "broker-amq-1-rl0fn",
+        "generateName": "broker-amq-1-",
+        "namespace": "origin-metrics",
+        "selfLink": "/api/v1/namespaces/origin-metrics/pods/broker-amq-1-rl0fn",
+        "uid": "6dfe108c-6fbc-11e6-b815-525400825485",
+        "resourceVersion": "15062",
+        "creationTimestamp": "2016-08-31T20:49:37Z",
+        "labels": {
+          "application": "broker",
+          "deployment": "broker-amq-1",
+          "deploymentConfig": "broker-amq",
+          "deploymentconfig": "broker-amq"
+        },
+        "annotations": {
+          "kubernetes.io/created-by": "{\"kind\":\"SerializedReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"ReplicationController\",\"namespace\":\"origin-metrics\",\"name\":\"broker-amq-1\",\"uid\":\"2624ab04-6fbb-11e6-b815-525400825485\",\"apiVersion\":\"v1\",\"resourceVersion\":\"5838\"}}\n",
+          "openshift.io/deployment-config.latest-version": "1",
+          "openshift.io/deployment-config.name": "broker-amq",
+          "openshift.io/deployment.name": "broker-amq-1",
+          "openshift.io/generated-by": "OpenShiftNewApp",
+          "openshift.io/scc": "anyuid"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "default-token-qefio",
+            "secret": {
+              "secretName": "default-token-qefio"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "broker-amq",
+            "image": "registry.access.redhat.com/jboss-amq-6/amq62-openshift@sha256:6397861d3b8d52f29c5e157b00a6999b8baf4ac7215af368a7b7d90ef6595a10",
+            "ports": [
+              {
+                "name": "jolokia",
+                "containerPort": 8778,
+                "protocol": "TCP"
+              },
+              {
+                "name": "amqp",
+                "containerPort": 5672,
+                "protocol": "TCP"
+              },
+              {
+                "name": "mqtt",
+                "containerPort": 1883,
+                "protocol": "TCP"
+              },
+              {
+                "name": "stomp",
+                "containerPort": 61613,
+                "protocol": "TCP"
+              },
+              {
+                "name": "tcp",
+                "containerPort": 61616,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "AMQ_USER",
+                "value": "admin"
+              },
+              {
+                "name": "AMQ_PASSWORD",
+                "value": "admin"
+              },
+              {
+                "name": "AMQ_TRANSPORTS",
+                "value": "openwire"
+              },
+              {
+                "name": "AMQ_QUEUES",
+                "value": "queue.one"
+              },
+              {
+                "name": "AMQ_TOPICS"
+              },
+              {
+                "name": "MQ_SERIALIZABLE_PACKAGES"
+              },
+              {
+                "name": "AMQ_MESH_DISCOVERY_TYPE",
+                "value": "kube"
+              },
+              {
+                "name": "AMQ_MESH_SERVICE_NAME",
+                "value": "broker-amq-tcp"
+              },
+              {
+                "name": "AMQ_MESH_SERVICE_NAMESPACE",
+                "valueFrom": {
+                  "fieldRef": {
+                    "apiVersion": "v1",
+                    "fieldPath": "metadata.namespace"
+                  }
+                }
+              },
+              {
+                "name": "AMQ_STORAGE_USAGE_LIMIT",
+                "value": "100 gb"
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "default-token-qefio",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "/bin/bash",
+                  "-c",
+                  "/opt/amq/bin/readinessProbe.sh"
+                ]
+              },
+              "timeoutSeconds": 1,
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "failureThreshold": 3
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "Always",
+            "securityContext": {
+              "capabilities": {
+                "drop": [
+                  "KILL",
+                  "MKNOD",
+                  "SYS_CHROOT"
+                ]
+              },
+              "privileged": false,
+              "seLinuxOptions": {
+                "level": "s0:c8,c7"
+              }
+            }
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 60,
+        "dnsPolicy": "ClusterFirst",
+        "host": "rhel-cdk",
+        "serviceAccountName": "default",
+        "serviceAccount": "default",
+        "nodeName": "rhel-cdk",
+        "securityContext": {
+          "seLinuxOptions": {
+            "level": "s0:c8,c7"
+          }
+        },
+        "imagePullSecrets": [
+          {
+            "name": "default-dockercfg-zrjt3"
+          }
+        ]
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Ready",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2016-08-31T20:49:54Z"
+          }
+        ],
+        "hostIP": "10.0.2.15",
+        "podIP": "172.17.0.9",
+        "startTime": "2016-08-31T20:49:37Z",
+        "containerStatuses": [
+          {
+            "name": "broker-amq",
+            "state": {
+              "running": {
+                "startedAt": "2016-08-31T20:49:42Z"
+              }
+            },
+            "lastState": {},
+            "ready": true,
+            "restartCount": 0,
+            "image": "registry.access.redhat.com/jboss-amq-6/amq62-openshift@sha256:6397861d3b8d52f29c5e157b00a6999b8baf4ac7215af368a7b7d90ef6595a10",
+            "imageID": "docker://563bd64603e26b0f6d8e43ab3d9234ba8c2036aea06a710c311f6ca6d9314e6f",
+            "containerID": "docker://c3624da13162334da950d48d0747e17faa257fd587a3dc42d9b42ac5e2727f16"
+          }
+        ]
+      }
+    },
+    {
+      "metadata": {
+        "name": "hawkular-cassandra-1-kah7d",
+        "generateName": "hawkular-cassandra-1-",
+        "namespace": "origin-metrics",
+        "selfLink": "/api/v1/namespaces/origin-metrics/pods/hawkular-cassandra-1-kah7d",
+        "uid": "d1b5183e-6fb0-11e6-b815-525400825485",
+        "resourceVersion": "15056",
+        "creationTimestamp": "2016-08-31T19:26:30Z",
+        "labels": {
+          "metrics-infra": "hawkular-cassandra",
+          "name": "hawkular-cassandra-1",
+          "type": "hawkular-cassandra"
+        },
+        "annotations": {
+          "kubernetes.io/created-by": "{\"kind\":\"SerializedReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"ReplicationController\",\"namespace\":\"origin-metrics\",\"name\":\"hawkular-cassandra-1\",\"uid\":\"d1b311dc-6fb0-11e6-b815-525400825485\",\"apiVersion\":\"v1\",\"resourceVersion\":\"4707\"}}\n",
+          "openshift.io/scc": "anyuid"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "cassandra-data",
+            "persistentVolumeClaim": {
+              "claimName": "metrics-cassandra-1"
+            }
+          },
+          {
+            "name": "hawkular-cassandra-secrets",
+            "secret": {
+              "secretName": "hawkular-cassandra-secrets"
+            }
+          },
+          {
+            "name": "cassandra-token-l1ptm",
+            "secret": {
+              "secretName": "cassandra-token-l1ptm"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "hawkular-cassandra-1",
+            "image": "openshift/origin-metrics-cassandra:v1.3.0-alpha.3",
+            "command": [
+              "/opt/apache-cassandra/bin/cassandra-docker.sh",
+              "--cluster_name=hawkular-metrics",
+              "--data_volume=/cassandra_data",
+              "--internode_encryption=all",
+              "--require_node_auth=true",
+              "--enable_client_encryption=true",
+              "--require_client_auth=true",
+              "--keystore_file=/secret/cassandra.keystore",
+              "--keystore_password_file=/secret/cassandra.keystore.password",
+              "--truststore_file=/secret/cassandra.truststore",
+              "--truststore_password_file=/secret/cassandra.truststore.password",
+              "--cassandra_pem_file=/secret/cassandra.pem"
+            ],
+            "ports": [
+              {
+                "name": "cql-port",
+                "containerPort": 9042,
+                "protocol": "TCP"
+              },
+              {
+                "name": "thift-port",
+                "containerPort": 9160,
+                "protocol": "TCP"
+              },
+              {
+                "name": "tcp-port",
+                "containerPort": 7000,
+                "protocol": "TCP"
+              },
+              {
+                "name": "ssl-port",
+                "containerPort": 7001,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "CASSANDRA_MASTER",
+                "value": "true"
+              },
+              {
+                "name": "POD_NAMESPACE",
+                "valueFrom": {
+                  "fieldRef": {
+                    "apiVersion": "v1",
+                    "fieldPath": "metadata.namespace"
+                  }
+                }
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "cassandra-data",
+                "mountPath": "/cassandra_data"
+              },
+              {
+                "name": "hawkular-cassandra-secrets",
+                "mountPath": "/secret"
+              },
+              {
+                "name": "cassandra-token-l1ptm",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "/opt/apache-cassandra/bin/cassandra-docker-ready.sh"
+                ]
+              },
+              "timeoutSeconds": 1,
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "failureThreshold": 3
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "IfNotPresent",
+            "securityContext": {
+              "capabilities": {
+                "drop": [
+                  "KILL",
+                  "MKNOD",
+                  "SYS_CHROOT"
+                ]
+              },
+              "privileged": false,
+              "seLinuxOptions": {
+                "level": "s0:c8,c7"
+              }
+            }
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "host": "rhel-cdk",
+        "serviceAccountName": "cassandra",
+        "serviceAccount": "cassandra",
+        "nodeName": "rhel-cdk",
+        "securityContext": {
+          "seLinuxOptions": {
+            "level": "s0:c8,c7"
+          }
+        },
+        "imagePullSecrets": [
+          {
+            "name": "cassandra-dockercfg-lz8ck"
+          }
+        ]
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Ready",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2016-08-31T19:28:02Z"
+          }
+        ],
+        "hostIP": "10.0.2.15",
+        "podIP": "172.17.0.4",
+        "startTime": "2016-08-31T19:26:30Z",
+        "containerStatuses": [
+          {
+            "name": "hawkular-cassandra-1",
+            "state": {
+              "running": {
+                "startedAt": "2016-08-31T19:27:47Z"
+              }
+            },
+            "lastState": {},
+            "ready": true,
+            "restartCount": 0,
+            "image": "openshift/origin-metrics-cassandra:v1.3.0-alpha.3",
+            "imageID": "docker://adaf7f9e628cc627e96c89fdd5bf67bd649c26d3a4684ef3c5e34a7762d67070",
+            "containerID": "docker://cd1d0766df807049836744f92929231284cef329fe43f668ba53686e547f7325"
+          }
+        ]
+      }
+    },
+    {
+      "metadata": {
+        "name": "hawkular-metrics-ql6em",
+        "generateName": "hawkular-metrics-",
+        "namespace": "origin-metrics",
+        "selfLink": "/api/v1/namespaces/origin-metrics/pods/hawkular-metrics-ql6em",
+        "uid": "d938f1e0-6fb0-11e6-b815-525400825485",
+        "resourceVersion": "15059",
+        "creationTimestamp": "2016-08-31T19:26:43Z",
+        "labels": {
+          "metrics-infra": "hawkular-metrics",
+          "name": "hawkular-metrics"
+        },
+        "annotations": {
+          "kubernetes.io/created-by": "{\"kind\":\"SerializedReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"ReplicationController\",\"namespace\":\"origin-metrics\",\"name\":\"hawkular-metrics\",\"uid\":\"d0f69790-6fb0-11e6-b815-525400825485\",\"apiVersion\":\"v1\",\"resourceVersion\":\"4683\"}}\n",
+          "openshift.io/scc": "anyuid"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "hawkular-metrics-secrets",
+            "secret": {
+              "secretName": "hawkular-metrics-secrets"
+            }
+          },
+          {
+            "name": "hawkular-metrics-client-secrets",
+            "secret": {
+              "secretName": "hawkular-metrics-account"
+            }
+          },
+          {
+            "name": "hawkular-token-tqklm",
+            "secret": {
+              "secretName": "hawkular-token-tqklm"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "hawkular-metrics",
+            "image": "openshift/origin-metrics-hawkular-metrics:v1.3.0-alpha.3",
+            "command": [
+              "/opt/hawkular/scripts/hawkular-metrics-wrapper.sh",
+              "-b",
+              "0.0.0.0",
+              "-Dhawkular-metrics.cassandra-nodes=hawkular-cassandra",
+              "-Dhawkular-metrics.cassandra-use-ssl",
+              "-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true",
+              "-Dorg.apache.catalina.connector.CoyoteAdapter.ALLOW_BACKSLASH=true",
+              "-Dhawkular-metrics.openshift.auth-methods=openshift-oauth,htpasswd",
+              "-Dhawkular-metrics.openshift.htpasswd-file=/secrets/hawkular-metrics.htpasswd.file",
+              "-Dhawkular.metrics.allowed-cors-access-control-allow-headers=authorization",
+              "-Dhawkular.metrics.default-ttl=7",
+              "-DKUBERNETES_MASTER_URL=https://kubernetes.default.svc:443",
+              "-DUSER_WRITE_ACCESS=true",
+              "--hmw.keystore=/secrets/hawkular-metrics.keystore",
+              "--hmw.truststore=/secrets/hawkular-metrics.truststore",
+              "--hmw.keystore_password_file=/secrets/hawkular-metrics.keystore.password",
+              "--hmw.truststore_password_file=/secrets/hawkular-metrics.truststore.password"
+            ],
+            "ports": [
+              {
+                "name": "http-endpoint",
+                "containerPort": 8080,
+                "protocol": "TCP"
+              },
+              {
+                "name": "https-endpoint",
+                "containerPort": 8443,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "POD_NAMESPACE",
+                "valueFrom": {
+                  "fieldRef": {
+                    "apiVersion": "v1",
+                    "fieldPath": "metadata.namespace"
+                  }
+                }
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "hawkular-metrics-secrets",
+                "mountPath": "/secrets"
+              },
+              {
+                "name": "hawkular-metrics-client-secrets",
+                "mountPath": "/client-secrets"
+              },
+              {
+                "name": "hawkular-token-tqklm",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "livenessProbe": {
+              "exec": {
+                "command": [
+                  "/opt/hawkular/scripts/hawkular-metrics-liveness.py"
+                ]
+              },
+              "timeoutSeconds": 1,
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "failureThreshold": 3
+            },
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "/opt/hawkular/scripts/hawkular-metrics-readiness.py"
+                ]
+              },
+              "timeoutSeconds": 1,
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "failureThreshold": 3
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "IfNotPresent",
+            "securityContext": {
+              "capabilities": {
+                "drop": [
+                  "KILL",
+                  "MKNOD",
+                  "SYS_CHROOT"
+                ]
+              },
+              "privileged": false,
+              "seLinuxOptions": {
+                "level": "s0:c8,c7"
+              }
+            }
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "host": "rhel-cdk",
+        "serviceAccountName": "hawkular",
+        "serviceAccount": "hawkular",
+        "nodeName": "rhel-cdk",
+        "securityContext": {
+          "seLinuxOptions": {
+            "level": "s0:c8,c7"
+          }
+        },
+        "imagePullSecrets": [
+          {
+            "name": "hawkular-dockercfg-u87hs"
+          }
+        ]
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Ready",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2016-08-31T19:32:53Z"
+          }
+        ],
+        "hostIP": "10.0.2.15",
+        "podIP": "172.17.0.7",
+        "startTime": "2016-08-31T19:26:43Z",
+        "containerStatuses": [
+          {
+            "name": "hawkular-metrics",
+            "state": {
+              "running": {
+                "startedAt": "2016-08-31T19:32:06Z"
+              }
+            },
+            "lastState": {},
+            "ready": true,
+            "restartCount": 0,
+            "image": "openshift/origin-metrics-hawkular-metrics:v1.3.0-alpha.3",
+            "imageID": "docker://7a1f0d247bc97ea6e8444c940c2022f799e732698d43925b47fc9d610a52ddc8",
+            "containerID": "docker://fb8ac0a60154047a603d4d7323c04e4b98000124fc43a737ec12da79245b7258"
+          }
+        ]
+      }
+    },
+    {
+      "metadata": {
+        "name": "heapster-qahu2",
+        "generateName": "heapster-",
+        "namespace": "origin-metrics",
+        "selfLink": "/api/v1/namespaces/origin-metrics/pods/heapster-qahu2",
+        "uid": "d2422714-6fb0-11e6-b815-525400825485",
+        "resourceVersion": "15038",
+        "creationTimestamp": "2016-08-31T19:26:31Z",
+        "labels": {
+          "metrics-infra": "heapster",
+          "name": "heapster"
+        },
+        "annotations": {
+          "kubernetes.io/created-by": "{\"kind\":\"SerializedReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"ReplicationController\",\"namespace\":\"origin-metrics\",\"name\":\"heapster\",\"uid\":\"d22fc765-6fb0-11e6-b815-525400825485\",\"apiVersion\":\"v1\",\"resourceVersion\":\"4726\"}}\n",
+          "openshift.io/scc": "anyuid"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "heapster-secrets",
+            "secret": {
+              "secretName": "heapster-secrets"
+            }
+          },
+          {
+            "name": "hawkular-metrics-certificate",
+            "secret": {
+              "secretName": "hawkular-metrics-certificate"
+            }
+          },
+          {
+            "name": "hawkular-metrics-account",
+            "secret": {
+              "secretName": "hawkular-metrics-account"
+            }
+          },
+          {
+            "name": "heapster-token-4znxo",
+            "secret": {
+              "secretName": "heapster-token-4znxo"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "heapster",
+            "image": "openshift/origin-metrics-heapster:v1.3.0-alpha.3",
+            "command": [
+              "heapster-wrapper.sh",
+              "--wrapper.username_file=/hawkular-account/hawkular-metrics.username",
+              "--wrapper.password_file=/hawkular-account/hawkular-metrics.password",
+              "--wrapper.allowed_users_file=/secrets/heapster.allowed-users",
+              "--wrapper.endpoint_check=https://hawkular-metrics:443/hawkular/metrics/status",
+              "--source=kubernetes:https://kubernetes.default.svc:443?useServiceAccount=true&kubeletHttps=true&kubeletPort=10250",
+              "--sink=hawkular:https://hawkular-metrics:443?tenant=_system&labelToTenant=pod_namespace&labelNodeId=nodename&caCert=/hawkular-cert/hawkular-metrics-ca.certificate&user=%username%&pass=%password%&filter=label(container_name:^system.slice.*|^user.slice)",
+              "--tls_cert=/secrets/heapster.cert",
+              "--tls_key=/secrets/heapster.key",
+              "--tls_client_ca=/secrets/heapster.client-ca",
+              "--allowed_users=%allowed_users%",
+              "--metric_resolution=10s"
+            ],
+            "ports": [
+              {
+                "name": "http-endpoint",
+                "containerPort": 8082,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "heapster-secrets",
+                "mountPath": "/secrets"
+              },
+              {
+                "name": "hawkular-metrics-certificate",
+                "mountPath": "/hawkular-cert"
+              },
+              {
+                "name": "hawkular-metrics-account",
+                "mountPath": "/hawkular-account"
+              },
+              {
+                "name": "heapster-token-4znxo",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "/opt/heapster-readiness.sh"
+                ]
+              },
+              "timeoutSeconds": 1,
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "failureThreshold": 3
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "IfNotPresent",
+            "securityContext": {
+              "capabilities": {
+                "drop": [
+                  "KILL",
+                  "MKNOD",
+                  "SYS_CHROOT"
+                ]
+              },
+              "privileged": false,
+              "seLinuxOptions": {
+                "level": "s0:c8,c7"
+              }
+            }
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "host": "rhel-cdk",
+        "serviceAccountName": "heapster",
+        "serviceAccount": "heapster",
+        "nodeName": "rhel-cdk",
+        "securityContext": {
+          "seLinuxOptions": {
+            "level": "s0:c8,c7"
+          }
+        }
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Ready",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2016-08-31T19:33:01Z"
+          }
+        ],
+        "hostIP": "10.0.2.15",
+        "podIP": "172.17.0.6",
+        "startTime": "2016-08-31T19:26:31Z",
+        "containerStatuses": [
+          {
+            "name": "heapster",
+            "state": {
+              "running": {
+                "startedAt": "2016-08-31T19:30:20Z"
+              }
+            },
+            "lastState": {},
+            "ready": true,
+            "restartCount": 0,
+            "image": "openshift/origin-metrics-heapster:v1.3.0-alpha.3",
+            "imageID": "docker://28280c29df00361c3f39449c023a1ee414669f94bf08a24c0ac68c7806be1c17",
+            "containerID": "docker://90ee4d9fa6f46f607ee8935020d25439dee731a11e80f6286dd78ca3c8567479"
+          }
+        ]
+      }
+    },
+    {
+      "metadata": {
+        "name": "jolokia-aggregator-api-2-build",
+        "namespace": "origin-metrics",
+        "selfLink": "/api/v1/namespaces/origin-metrics/pods/jolokia-aggregator-api-2-build",
+        "uid": "ff93f23c-701c-11e6-b815-525400825485",
+        "resourceVersion": "7205",
+        "creationTimestamp": "2016-09-01T08:20:53Z",
+        "labels": {
+          "openshift.io/build.name": "jolokia-aggregator-api-2"
+        },
+        "annotations": {
+          "openshift.io/build.name": "jolokia-aggregator-api-2",
+          "openshift.io/scc": "privileged"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "docker-socket",
+            "hostPath": {
+              "path": "/var/run/docker.sock"
+            }
+          },
+          {
+            "name": "builder-dockercfg-xlpu1-push",
+            "secret": {
+              "secretName": "builder-dockercfg-xlpu1"
+            }
+          },
+          {
+            "name": "builder-token-utxf8",
+            "secret": {
+              "secretName": "builder-token-utxf8"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "sti-build",
+            "image": "openshift3/ose-sti-builder:v3.2.0.44",
+            "args": [
+              "--loglevel=0"
+            ],
+            "env": [
+              {
+                "name": "BUILD",
+                "value": "{\"kind\":\"Build\",\"apiVersion\":\"v1\",\"metadata\":{\"name\":\"jolokia-aggregator-api-2\",\"namespace\":\"origin-metrics\",\"selfLink\":\"/oapi/v1/namespaces/origin-metrics/builds/jolokia-aggregator-api-2\",\"uid\":\"ff91821c-701c-11e6-b815-525400825485\",\"resourceVersion\":\"6989\",\"creationTimestamp\":\"2016-09-01T08:20:53Z\",\"labels\":{\"app\":\"jolokia-aggregator-api\",\"buildconfig\":\"jolokia-aggregator-api\",\"group\":\"api\",\"openshift.io/build-config.name\":\"jolokia-aggregator-api\",\"project\":\"jolokia-aggregator-api\",\"version\":\"1.0.0-SNAPSHOT\"},\"annotations\":{\"openshift.io/build.number\":\"2\"}},\"spec\":{\"serviceAccount\":\"builder\",\"source\":{\"type\":\"Git\",\"git\":{\"uri\":\"https://github.com/welshstew/jolokia-aggregator-springboot.git\"},\"secrets\":[]},\"strategy\":{\"type\":\"Source\",\"sourceStrategy\":{\"from\":{\"kind\":\"DockerImage\",\"name\":\"registry.access.redhat.com/jboss-fuse-6/fis-java-openshift@sha256:ca1f1c5ad72e89f29346140a3b1bf383529c50ee2f769e0f1b4e0092998d5246\"},\"env\":[{\"name\":\"JAVA_MAIN_CLASS\",\"value\":\"org.swinchester.metrics.jolokia.app.JolokiaAggregatorApplication\"},{\"name\":\"ARTIFACT_DIR\",\"value\":\"jolokia-aggregator-api/target\"},{\"name\":\"HAWTAPP_VERSION\",\"value\":\"2.2.0.redhat-079\"}]}},\"output\":{\"to\":{\"kind\":\"DockerImage\",\"name\":\"172.30.18.43:5000/origin-metrics/jolokia-aggregator-api:latest\"},\"pushSecret\":{\"name\":\"builder-dockercfg-xlpu1\"}},\"resources\":{},\"postCommit\":{}},\"status\":{\"phase\":\"New\",\"outputDockerImageReference\":\"172.30.18.43:5000/origin-metrics/jolokia-aggregator-api:latest\",\"config\":{\"kind\":\"BuildConfig\",\"namespace\":\"origin-metrics\",\"name\":\"jolokia-aggregator-api\"}}}\n"
+              },
+              {
+                "name": "BUILD_LOGLEVEL",
+                "value": "0"
+              },
+              {
+                "name": "SOURCE_REPOSITORY",
+                "value": "https://github.com/welshstew/jolokia-aggregator-springboot.git"
+              },
+              {
+                "name": "SOURCE_URI",
+                "value": "https://github.com/welshstew/jolokia-aggregator-springboot.git"
+              },
+              {
+                "name": "ORIGIN_VERSION",
+                "value": "v3.2.0.44"
+              },
+              {
+                "name": "ALLOWED_UIDS",
+                "value": "1-"
+              },
+              {
+                "name": "DROP_CAPS",
+                "value": "KILL,MKNOD,SETGID,SETUID,SYS_CHROOT"
+              },
+              {
+                "name": "PUSH_DOCKERCFG_PATH",
+                "value": "/var/run/secrets/openshift.io/push"
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "docker-socket",
+                "mountPath": "/var/run/docker.sock"
+              },
+              {
+                "name": "builder-dockercfg-xlpu1-push",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/openshift.io/push"
+              },
+              {
+                "name": "builder-token-utxf8",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "IfNotPresent",
+            "securityContext": {
+              "privileged": true
+            }
+          }
+        ],
+        "restartPolicy": "Never",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "host": "rhel-cdk",
+        "serviceAccountName": "builder",
+        "serviceAccount": "builder",
+        "nodeName": "rhel-cdk",
+        "securityContext": {},
+        "imagePullSecrets": [
+          {
+            "name": "builder-dockercfg-xlpu1"
+          }
+        ]
+      },
+      "status": {
+        "phase": "Succeeded",
+        "conditions": [
+          {
+            "type": "Ready",
+            "status": "False",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2016-09-01T08:52:36Z",
+            "reason": "PodCompleted"
+          }
+        ],
+        "hostIP": "10.0.2.15",
+        "podIP": "172.17.0.12",
+        "startTime": "2016-09-01T08:20:53Z",
+        "containerStatuses": [
+          {
+            "name": "sti-build",
+            "state": {
+              "terminated": {
+                "exitCode": 0,
+                "reason": "Completed",
+                "startedAt": "2016-09-01T08:20:55Z",
+                "finishedAt": "2016-09-01T08:52:35Z",
+                "containerID": "docker://dd558d8e70d47264f3ab78b775f0d8540d3e0bf346d850672796abb87d58772b"
+              }
+            },
+            "lastState": {},
+            "ready": false,
+            "restartCount": 0,
+            "image": "openshift3/ose-sti-builder:v3.2.0.44",
+            "imageID": "docker://dbacea5572a04cb11ab9254e31b2ffdf42b77876411a5690f757ea489b3d8fe5",
+            "containerID": "docker://dd558d8e70d47264f3ab78b775f0d8540d3e0bf346d850672796abb87d58772b"
+          }
+        ]
+      }
+    },
+    {
+      "metadata": {
+        "name": "jolokia-aggregator-api-2-nvpud",
+        "generateName": "jolokia-aggregator-api-2-",
+        "namespace": "origin-metrics",
+        "selfLink": "/api/v1/namespaces/origin-metrics/pods/jolokia-aggregator-api-2-nvpud",
+        "uid": "85e49d16-707b-11e6-b815-525400825485",
+        "resourceVersion": "15041",
+        "creationTimestamp": "2016-09-01T19:37:31Z",
+        "labels": {
+          "app": "jolokia-aggregator-api",
+          "deployment": "jolokia-aggregator-api-2",
+          "deploymentconfig": "jolokia-aggregator-api",
+          "group": "api",
+          "project": "jolokia-aggregator-api",
+          "provider": "org.swinchester.metrics",
+          "version": "1.0-SNAPSHOT"
+        },
+        "annotations": {
+          "kubernetes.io/created-by": "{\"kind\":\"SerializedReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"ReplicationController\",\"namespace\":\"origin-metrics\",\"name\":\"jolokia-aggregator-api-2\",\"uid\":\"6d8156a5-7021-11e6-b815-525400825485\",\"apiVersion\":\"v1\",\"resourceVersion\":\"7427\"}}\n",
+          "openshift.io/deployment-config.latest-version": "2",
+          "openshift.io/deployment-config.name": "jolokia-aggregator-api",
+          "openshift.io/deployment.name": "jolokia-aggregator-api-2",
+          "openshift.io/generated-by": "OpenShiftNewApp",
+          "openshift.io/scc": "anyuid"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "jolokia-agg-cfg",
+            "configMap": {
+              "name": "jolokia-agg-cfg"
+            }
+          },
+          {
+            "name": "default-token-qefio",
+            "secret": {
+              "secretName": "default-token-qefio"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "jolokia-aggregator-api",
+            "image": "172.30.18.43:5000/origin-metrics/jolokia-aggregator-api@sha256:4e2f24d93f23bd1da20cb5cc317b0cea8b104260ef5f2e877f1da39a59bf8079",
+            "ports": [
+              {
+                "name": "http",
+                "containerPort": 8080,
+                "protocol": "TCP"
+              },
+              {
+                "name": "jolokia",
+                "containerPort": 8787,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "SPRING_CONFIG_LOCATION",
+                "value": "file:///etc/config/application.yml"
+              },
+              {
+                "name": "KUBERNETES_NAMESPACE",
+                "valueFrom": {
+                  "fieldRef": {
+                    "apiVersion": "v1",
+                    "fieldPath": "metadata.namespace"
+                  }
+                }
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "jolokia-agg-cfg",
+                "readOnly": true,
+                "mountPath": "/etc/config"
+              },
+              {
+                "name": "default-token-qefio",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "livenessProbe": {
+              "tcpSocket": {
+                "port": 8080
+              },
+              "initialDelaySeconds": 30,
+              "timeoutSeconds": 60,
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "failureThreshold": 3
+            },
+            "readinessProbe": {
+              "tcpSocket": {
+                "port": 8080
+              },
+              "initialDelaySeconds": 30,
+              "timeoutSeconds": 1,
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "failureThreshold": 3
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "Always",
+            "securityContext": {
+              "capabilities": {
+                "drop": [
+                  "KILL",
+                  "MKNOD",
+                  "SYS_CHROOT"
+                ]
+              },
+              "privileged": false,
+              "seLinuxOptions": {
+                "level": "s0:c8,c7"
+              }
+            }
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "host": "rhel-cdk",
+        "serviceAccountName": "default",
+        "serviceAccount": "default",
+        "nodeName": "rhel-cdk",
+        "securityContext": {
+          "seLinuxOptions": {
+            "level": "s0:c8,c7"
+          }
+        },
+        "imagePullSecrets": [
+          {
+            "name": "default-dockercfg-zrjt3"
+          }
+        ]
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Ready",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2016-09-01T19:38:11Z"
+          }
+        ],
+        "hostIP": "10.0.2.15",
+        "podIP": "172.17.0.11",
+        "startTime": "2016-09-01T19:37:31Z",
+        "containerStatuses": [
+          {
+            "name": "jolokia-aggregator-api",
+            "state": {
+              "running": {
+                "startedAt": "2016-09-01T19:37:33Z"
+              }
+            },
+            "lastState": {},
+            "ready": true,
+            "restartCount": 0,
+            "image": "172.30.18.43:5000/origin-metrics/jolokia-aggregator-api@sha256:4e2f24d93f23bd1da20cb5cc317b0cea8b104260ef5f2e877f1da39a59bf8079",
+            "imageID": "docker://8aa4463a2ce9f065a844257a6a112a82b77c0f9520b2530d5bf8368e1d431194",
+            "containerID": "docker://d7993b46ab81d21e5a8aa1328f771d1c41cf0cc83534bd6a6b11f11dd94a3157"
+          }
+        ]
+      }
+    },
+    {
+      "metadata": {
+        "name": "metrics-collectj-4-7wizw",
+        "generateName": "metrics-collectj-4-",
+        "namespace": "origin-metrics",
+        "selfLink": "/api/v1/namespaces/origin-metrics/pods/metrics-collectj-4-7wizw",
+        "uid": "b9bf33bf-7087-11e6-b815-525400825485",
+        "resourceVersion": "15052",
+        "creationTimestamp": "2016-09-01T21:04:52Z",
+        "labels": {
+          "app": "metrics-collectj",
+          "deployment": "metrics-collectj-4",
+          "deploymentconfig": "metrics-collectj",
+          "group": "metrics",
+          "project": "metrics-collectj",
+          "version": "1.0-SNAPSHOT"
+        },
+        "annotations": {
+          "kubernetes.io/created-by": "{\"kind\":\"SerializedReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"ReplicationController\",\"namespace\":\"origin-metrics\",\"name\":\"metrics-collectj-4\",\"uid\":\"b6629565-7087-11e6-b815-525400825485\",\"apiVersion\":\"v1\",\"resourceVersion\":\"11737\"}}\n",
+          "openshift.io/deployment-config.latest-version": "4",
+          "openshift.io/deployment-config.name": "metrics-collectj",
+          "openshift.io/deployment.name": "metrics-collectj-4",
+          "openshift.io/generated-by": "OpenShiftNewApp",
+          "openshift.io/scc": "anyuid"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "metrics-collectj",
+            "configMap": {
+              "name": "metrics-collectj"
+            }
+          },
+          {
+            "name": "default-token-qefio",
+            "secret": {
+              "secretName": "default-token-qefio"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "metrics-collectj",
+            "image": "172.30.18.43:5000/origin-metrics/metrics-collectj@sha256:a569c2b1e3835d7e6a8207d0c0fc63efbe2af4943bba66880a859bfe78712aa1",
+            "ports": [
+              {
+                "name": "jolokia",
+                "containerPort": 8778,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "SPRING_CONFIG_LOCATION",
+                "value": "file:///etc/config/application.yml"
+              },
+              {
+                "name": "KUBERNETES_NAMESPACE",
+                "valueFrom": {
+                  "fieldRef": {
+                    "apiVersion": "v1",
+                    "fieldPath": "metadata.namespace"
+                  }
+                }
+              }
+            ],
+            "resources": {
+              "limits": {
+                "cpu": "400m",
+                "memory": "1Gi"
+              },
+              "requests": {
+                "cpu": "200m",
+                "memory": "512Mi"
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "metrics-collectj",
+                "readOnly": true,
+                "mountPath": "/etc/config"
+              },
+              {
+                "name": "default-token-qefio",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "Always",
+            "securityContext": {
+              "capabilities": {
+                "drop": [
+                  "KILL",
+                  "MKNOD",
+                  "SYS_CHROOT"
+                ]
+              },
+              "privileged": false,
+              "seLinuxOptions": {
+                "level": "s0:c8,c7"
+              }
+            }
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "host": "rhel-cdk",
+        "serviceAccountName": "default",
+        "serviceAccount": "default",
+        "nodeName": "rhel-cdk",
+        "securityContext": {
+          "seLinuxOptions": {
+            "level": "s0:c8,c7"
+          }
+        },
+        "imagePullSecrets": [
+          {
+            "name": "default-dockercfg-zrjt3"
+          }
+        ]
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Ready",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2016-09-01T21:05:04Z"
+          }
+        ],
+        "hostIP": "10.0.2.15",
+        "podIP": "172.17.0.12",
+        "startTime": "2016-09-01T21:04:52Z",
+        "containerStatuses": [
+          {
+            "name": "metrics-collectj",
+            "state": {
+              "running": {
+                "startedAt": "2016-09-01T21:05:04Z"
+              }
+            },
+            "lastState": {},
+            "ready": true,
+            "restartCount": 0,
+            "image": "172.30.18.43:5000/origin-metrics/metrics-collectj@sha256:a569c2b1e3835d7e6a8207d0c0fc63efbe2af4943bba66880a859bfe78712aa1",
+            "imageID": "docker://72dea8ebccc2d27a3508bbe664b5869c73fa4bcf8413cfee8a17f63858cea78b",
+            "containerID": "docker://b08b18302347b82230cd90fa7059891c82528965391a207a066b8584cbbc8d1b"
+          }
+        ]
+      }
+    },
+    {
+      "metadata": {
+        "name": "metrics-collectj-4-build",
+        "namespace": "origin-metrics",
+        "selfLink": "/api/v1/namespaces/origin-metrics/pods/metrics-collectj-4-build",
+        "uid": "7da45aee-707c-11e6-b815-525400825485",
+        "resourceVersion": "11408",
+        "creationTimestamp": "2016-09-01T19:44:26Z",
+        "labels": {
+          "openshift.io/build.name": "metrics-collectj-4"
+        },
+        "annotations": {
+          "openshift.io/build.name": "metrics-collectj-4",
+          "openshift.io/scc": "privileged"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "docker-socket",
+            "hostPath": {
+              "path": "/var/run/docker.sock"
+            }
+          },
+          {
+            "name": "builder-dockercfg-xlpu1-push",
+            "secret": {
+              "secretName": "builder-dockercfg-xlpu1"
+            }
+          },
+          {
+            "name": "builder-token-utxf8",
+            "secret": {
+              "secretName": "builder-token-utxf8"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "sti-build",
+            "image": "openshift3/ose-sti-builder:v3.2.0.44",
+            "args": [
+              "--loglevel=0"
+            ],
+            "env": [
+              {
+                "name": "BUILD",
+                "value": "{\"kind\":\"Build\",\"apiVersion\":\"v1\",\"metadata\":{\"name\":\"metrics-collectj-4\",\"namespace\":\"origin-metrics\",\"selfLink\":\"/oapi/v1/namespaces/origin-metrics/builds/metrics-collectj-4\",\"uid\":\"7da22bb2-707c-11e6-b815-525400825485\",\"resourceVersion\":\"11158\",\"creationTimestamp\":\"2016-09-01T19:44:26Z\",\"labels\":{\"app\":\"metrics-collectj\",\"buildconfig\":\"metrics-collectj\",\"group\":\"metrics\",\"openshift.io/build-config.name\":\"metrics-collectj\",\"project\":\"metrics-collectj\",\"version\":\"1.0.0-SNAPSHOT\"},\"annotations\":{\"openshift.io/build.number\":\"4\"}},\"spec\":{\"serviceAccount\":\"builder\",\"source\":{\"type\":\"Git\",\"git\":{\"uri\":\"https://github.com/welshstew/hawkular-metrics-collectj.git\"},\"secrets\":[]},\"strategy\":{\"type\":\"Source\",\"sourceStrategy\":{\"from\":{\"kind\":\"DockerImage\",\"name\":\"registry.access.redhat.com/jboss-fuse-6/fis-java-openshift@sha256:ca1f1c5ad72e89f29346140a3b1bf383529c50ee2f769e0f1b4e0092998d5246\"},\"env\":[{\"name\":\"JAVA_MAIN_CLASS\",\"value\":\"org.swinchester.metrics.collectj.app.CollectJApplication\"},{\"name\":\"ARTIFACT_DIR\",\"value\":\"metrics-collectj/target\"},{\"name\":\"HAWTAPP_VERSION\",\"value\":\"2.2.0.redhat-079\"}]}},\"output\":{\"to\":{\"kind\":\"DockerImage\",\"name\":\"172.30.18.43:5000/origin-metrics/metrics-collectj:latest\"},\"pushSecret\":{\"name\":\"builder-dockercfg-xlpu1\"}},\"resources\":{},\"postCommit\":{}},\"status\":{\"phase\":\"New\",\"outputDockerImageReference\":\"172.30.18.43:5000/origin-metrics/metrics-collectj:latest\",\"config\":{\"kind\":\"BuildConfig\",\"namespace\":\"origin-metrics\",\"name\":\"metrics-collectj\"}}}\n"
+              },
+              {
+                "name": "BUILD_LOGLEVEL",
+                "value": "0"
+              },
+              {
+                "name": "SOURCE_REPOSITORY",
+                "value": "https://github.com/welshstew/hawkular-metrics-collectj.git"
+              },
+              {
+                "name": "SOURCE_URI",
+                "value": "https://github.com/welshstew/hawkular-metrics-collectj.git"
+              },
+              {
+                "name": "ORIGIN_VERSION",
+                "value": "v3.2.0.44"
+              },
+              {
+                "name": "ALLOWED_UIDS",
+                "value": "1-"
+              },
+              {
+                "name": "DROP_CAPS",
+                "value": "KILL,MKNOD,SETGID,SETUID,SYS_CHROOT"
+              },
+              {
+                "name": "PUSH_DOCKERCFG_PATH",
+                "value": "/var/run/secrets/openshift.io/push"
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "docker-socket",
+                "mountPath": "/var/run/docker.sock"
+              },
+              {
+                "name": "builder-dockercfg-xlpu1-push",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/openshift.io/push"
+              },
+              {
+                "name": "builder-token-utxf8",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "IfNotPresent",
+            "securityContext": {
+              "privileged": true
+            }
+          }
+        ],
+        "restartPolicy": "Never",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "host": "rhel-cdk",
+        "serviceAccountName": "builder",
+        "serviceAccount": "builder",
+        "nodeName": "rhel-cdk",
+        "securityContext": {},
+        "imagePullSecrets": [
+          {
+            "name": "builder-dockercfg-xlpu1"
+          }
+        ]
+      },
+      "status": {
+        "phase": "Succeeded",
+        "conditions": [
+          {
+            "type": "Ready",
+            "status": "False",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2016-09-01T20:22:49Z",
+            "reason": "PodCompleted"
+          }
+        ],
+        "hostIP": "10.0.2.15",
+        "podIP": "172.17.0.12",
+        "startTime": "2016-09-01T19:44:26Z",
+        "containerStatuses": [
+          {
+            "name": "sti-build",
+            "state": {
+              "terminated": {
+                "exitCode": 0,
+                "reason": "Completed",
+                "startedAt": "2016-09-01T19:44:28Z",
+                "finishedAt": "2016-09-01T20:22:48Z",
+                "containerID": "docker://9b38896759697b3b2998f7ca08d4d568ad79968bf6761245e516bbea00927a23"
+              }
+            },
+            "lastState": {},
+            "ready": false,
+            "restartCount": 0,
+            "image": "openshift3/ose-sti-builder:v3.2.0.44",
+            "imageID": "docker://dbacea5572a04cb11ab9254e31b2ffdf42b77876411a5690f757ea489b3d8fe5",
+            "containerID": "docker://9b38896759697b3b2998f7ca08d4d568ad79968bf6761245e516bbea00927a23"
+          }
+        ]
+      }
+    },
+    {
+      "metadata": {
+        "name": "metrics-collectj-5-build",
+        "namespace": "origin-metrics",
+        "selfLink": "/api/v1/namespaces/origin-metrics/pods/metrics-collectj-5-build",
+        "uid": "aa6d726f-7082-11e6-b815-525400825485",
+        "resourceVersion": "11720",
+        "creationTimestamp": "2016-09-01T20:28:38Z",
+        "labels": {
+          "openshift.io/build.name": "metrics-collectj-5"
+        },
+        "annotations": {
+          "openshift.io/build.name": "metrics-collectj-5",
+          "openshift.io/scc": "privileged"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "docker-socket",
+            "hostPath": {
+              "path": "/var/run/docker.sock"
+            }
+          },
+          {
+            "name": "builder-dockercfg-xlpu1-push",
+            "secret": {
+              "secretName": "builder-dockercfg-xlpu1"
+            }
+          },
+          {
+            "name": "builder-token-utxf8",
+            "secret": {
+              "secretName": "builder-token-utxf8"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "sti-build",
+            "image": "openshift3/ose-sti-builder:v3.2.0.44",
+            "args": [
+              "--loglevel=0"
+            ],
+            "env": [
+              {
+                "name": "BUILD",
+                "value": "{\"kind\":\"Build\",\"apiVersion\":\"v1\",\"metadata\":{\"name\":\"metrics-collectj-5\",\"namespace\":\"origin-metrics\",\"selfLink\":\"/oapi/v1/namespaces/origin-metrics/builds/metrics-collectj-5\",\"uid\":\"aa6a8511-7082-11e6-b815-525400825485\",\"resourceVersion\":\"11477\",\"creationTimestamp\":\"2016-09-01T20:28:38Z\",\"labels\":{\"app\":\"metrics-collectj\",\"buildconfig\":\"metrics-collectj\",\"group\":\"metrics\",\"openshift.io/build-config.name\":\"metrics-collectj\",\"project\":\"metrics-collectj\",\"version\":\"1.0.0-SNAPSHOT\"},\"annotations\":{\"openshift.io/build.number\":\"5\"}},\"spec\":{\"serviceAccount\":\"builder\",\"source\":{\"type\":\"Git\",\"git\":{\"uri\":\"https://github.com/welshstew/hawkular-metrics-collectj.git\"},\"secrets\":[]},\"strategy\":{\"type\":\"Source\",\"sourceStrategy\":{\"from\":{\"kind\":\"DockerImage\",\"name\":\"registry.access.redhat.com/jboss-fuse-6/fis-java-openshift@sha256:ca1f1c5ad72e89f29346140a3b1bf383529c50ee2f769e0f1b4e0092998d5246\"},\"env\":[{\"name\":\"JAVA_MAIN_CLASS\",\"value\":\"org.swinchester.metrics.collectj.app.CollectJApplication\"},{\"name\":\"ARTIFACT_DIR\",\"value\":\"metrics-collectj/target\"},{\"name\":\"HAWTAPP_VERSION\",\"value\":\"2.2.0.redhat-079\"}]}},\"output\":{\"to\":{\"kind\":\"DockerImage\",\"name\":\"172.30.18.43:5000/origin-metrics/metrics-collectj:latest\"},\"pushSecret\":{\"name\":\"builder-dockercfg-xlpu1\"}},\"resources\":{},\"postCommit\":{}},\"status\":{\"phase\":\"New\",\"outputDockerImageReference\":\"172.30.18.43:5000/origin-metrics/metrics-collectj:latest\",\"config\":{\"kind\":\"BuildConfig\",\"namespace\":\"origin-metrics\",\"name\":\"metrics-collectj\"}}}\n"
+              },
+              {
+                "name": "BUILD_LOGLEVEL",
+                "value": "0"
+              },
+              {
+                "name": "SOURCE_REPOSITORY",
+                "value": "https://github.com/welshstew/hawkular-metrics-collectj.git"
+              },
+              {
+                "name": "SOURCE_URI",
+                "value": "https://github.com/welshstew/hawkular-metrics-collectj.git"
+              },
+              {
+                "name": "ORIGIN_VERSION",
+                "value": "v3.2.0.44"
+              },
+              {
+                "name": "ALLOWED_UIDS",
+                "value": "1-"
+              },
+              {
+                "name": "DROP_CAPS",
+                "value": "KILL,MKNOD,SETGID,SETUID,SYS_CHROOT"
+              },
+              {
+                "name": "PUSH_DOCKERCFG_PATH",
+                "value": "/var/run/secrets/openshift.io/push"
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "docker-socket",
+                "mountPath": "/var/run/docker.sock"
+              },
+              {
+                "name": "builder-dockercfg-xlpu1-push",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/openshift.io/push"
+              },
+              {
+                "name": "builder-token-utxf8",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "IfNotPresent",
+            "securityContext": {
+              "privileged": true
+            }
+          }
+        ],
+        "restartPolicy": "Never",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "host": "rhel-cdk",
+        "serviceAccountName": "builder",
+        "serviceAccount": "builder",
+        "nodeName": "rhel-cdk",
+        "securityContext": {},
+        "imagePullSecrets": [
+          {
+            "name": "builder-dockercfg-xlpu1"
+          }
+        ]
+      },
+      "status": {
+        "phase": "Succeeded",
+        "conditions": [
+          {
+            "type": "Ready",
+            "status": "False",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2016-09-01T21:04:47Z",
+            "reason": "PodCompleted"
+          }
+        ],
+        "hostIP": "10.0.2.15",
+        "podIP": "172.17.0.12",
+        "startTime": "2016-09-01T20:28:38Z",
+        "containerStatuses": [
+          {
+            "name": "sti-build",
+            "state": {
+              "terminated": {
+                "exitCode": 0,
+                "reason": "Completed",
+                "startedAt": "2016-09-01T20:28:41Z",
+                "finishedAt": "2016-09-01T21:04:46Z",
+                "containerID": "docker://7b00b38f64a3c668884da4e296809d500d652c0c00cce4184b5f17069d274c2b"
+              }
+            },
+            "lastState": {},
+            "ready": false,
+            "restartCount": 0,
+            "image": "openshift3/ose-sti-builder:v3.2.0.44",
+            "imageID": "docker://dbacea5572a04cb11ab9254e31b2ffdf42b77876411a5690f757ea489b3d8fe5",
+            "containerID": "docker://7b00b38f64a3c668884da4e296809d500d652c0c00cce4184b5f17069d274c2b"
+          }
+        ]
+      }
+    },
+    {
+      "metadata": {
+        "name": "metrics-deployer-hx8kc",
+        "generateName": "metrics-deployer-",
+        "namespace": "origin-metrics",
+        "selfLink": "/api/v1/namespaces/origin-metrics/pods/metrics-deployer-hx8kc",
+        "uid": "7d2a513e-6fb0-11e6-b815-525400825485",
+        "resourceVersion": "4831",
+        "creationTimestamp": "2016-08-31T19:24:08Z",
+        "labels": {
+          "component": "deployer",
+          "metrics-infra": "deployer",
+          "provider": "openshift"
+        },
+        "annotations": {
+          "openshift.io/scc": "anyuid"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "empty",
+            "emptyDir": {}
+          },
+          {
+            "name": "secret",
+            "secret": {
+              "secretName": "metrics-deployer"
+            }
+          },
+          {
+            "name": "metrics-deployer-token-56gmg",
+            "secret": {
+              "secretName": "metrics-deployer-token-56gmg"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "deployer",
+            "image": "openshift/origin-metrics-deployer:v1.3.0-alpha.3",
+            "env": [
+              {
+                "name": "PROJECT",
+                "valueFrom": {
+                  "fieldRef": {
+                    "apiVersion": "v1",
+                    "fieldPath": "metadata.namespace"
+                  }
+                }
+              },
+              {
+                "name": "POD_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "apiVersion": "v1",
+                    "fieldPath": "metadata.name"
+                  }
+                }
+              },
+              {
+                "name": "IMAGE_PREFIX",
+                "value": "openshift/origin-"
+              },
+              {
+                "name": "IMAGE_VERSION",
+                "value": "v1.3.0-alpha.3"
+              },
+              {
+                "name": "MASTER_URL",
+                "value": "https://kubernetes.default.svc:443"
+              },
+              {
+                "name": "MODE",
+                "value": "deploy"
+              },
+              {
+                "name": "REDEPLOY",
+                "value": "false"
+              },
+              {
+                "name": "IGNORE_PREFLIGHT",
+                "value": "false"
+              },
+              {
+                "name": "USE_PERSISTENT_STORAGE",
+                "value": "true"
+              },
+              {
+                "name": "HAWKULAR_METRICS_HOSTNAME",
+                "value": "hawkular-metrics-origin-metrics.rhel-cdk.10.1.2.2.xip.io"
+              },
+              {
+                "name": "CASSANDRA_NODES",
+                "value": "1"
+              },
+              {
+                "name": "CASSANDRA_PV_SIZE",
+                "value": "1Gi"
+              },
+              {
+                "name": "METRIC_DURATION",
+                "value": "7"
+              },
+              {
+                "name": "USER_WRITE_ACCESS",
+                "value": "true"
+              },
+              {
+                "name": "HEAPSTER_NODE_ID",
+                "value": "nodename"
+              },
+              {
+                "name": "METRIC_RESOLUTION",
+                "value": "10s"
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "secret",
+                "readOnly": true,
+                "mountPath": "/secret"
+              },
+              {
+                "name": "empty",
+                "mountPath": "/etc/deploy"
+              },
+              {
+                "name": "metrics-deployer-token-56gmg",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "IfNotPresent",
+            "securityContext": {
+              "capabilities": {
+                "drop": [
+                  "KILL",
+                  "MKNOD",
+                  "SYS_CHROOT"
+                ]
+              },
+              "privileged": false,
+              "seLinuxOptions": {
+                "level": "s0:c8,c7"
+              }
+            }
+          }
+        ],
+        "restartPolicy": "Never",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "host": "rhel-cdk",
+        "serviceAccountName": "metrics-deployer",
+        "serviceAccount": "metrics-deployer",
+        "nodeName": "rhel-cdk",
+        "securityContext": {
+          "seLinuxOptions": {
+            "level": "s0:c8,c7"
+          }
+        },
+        "imagePullSecrets": [
+          {
+            "name": "metrics-deployer-dockercfg-yrdum"
+          }
+        ]
+      },
+      "status": {
+        "phase": "Succeeded",
+        "conditions": [
+          {
+            "type": "Ready",
+            "status": "False",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2016-08-31T19:33:05Z",
+            "reason": "PodCompleted"
+          }
+        ],
+        "hostIP": "10.0.2.15",
+        "podIP": "172.17.0.2",
+        "startTime": "2016-08-31T19:24:08Z",
+        "containerStatuses": [
+          {
+            "name": "deployer",
+            "state": {
+              "terminated": {
+                "exitCode": 0,
+                "reason": "Completed",
+                "startedAt": "2016-08-31T19:26:21Z",
+                "finishedAt": "2016-08-31T19:33:04Z",
+                "containerID": "docker://ec8b8fd98be4a369f6ebabe20866ad13457f69a4d5d79769adfd0431e5bfbd6a"
+              }
+            },
+            "lastState": {},
+            "ready": false,
+            "restartCount": 0,
+            "image": "openshift/origin-metrics-deployer:v1.3.0-alpha.3",
+            "imageID": "docker://c364489650f89f25ac219af28da4152dbf6b5133e176bb96fe3abb8d5a67c967",
+            "containerID": "docker://ec8b8fd98be4a369f6ebabe20866ad13457f69a4d5d79769adfd0431e5bfbd6a"
+          }
+        ]
+      }
+    },
+    {
+      "metadata": {
+        "name": "metrics-grafana-1-93xrb",
+        "generateName": "metrics-grafana-1-",
+        "namespace": "origin-metrics",
+        "selfLink": "/api/v1/namespaces/origin-metrics/pods/metrics-grafana-1-93xrb",
+        "uid": "a655861d-6fb8-11e6-b815-525400825485",
+        "resourceVersion": "15046",
+        "creationTimestamp": "2016-08-31T20:22:33Z",
+        "labels": {
+          "component": "metrics-grafana",
+          "container": "docker",
+          "deployment": "metrics-grafana-1",
+          "deploymentconfig": "metrics-grafana",
+          "group": "metrics",
+          "project": "metrics-grafana",
+          "provider": "swinchester",
+          "version": "1.0-SNAPSHOT"
+        },
+        "annotations": {
+          "kubernetes.io/created-by": "{\"kind\":\"SerializedReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"ReplicationController\",\"namespace\":\"origin-metrics\",\"name\":\"metrics-grafana-1\",\"uid\":\"e02569e9-6fb3-11e6-b815-525400825485\",\"apiVersion\":\"v1\",\"resourceVersion\":\"5200\"}}\n",
+          "openshift.io/scc": "anyuid"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "grafana-token-x1r0e",
+            "secret": {
+              "secretName": "grafana-token-x1r0e"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "metrics-grafana",
+            "image": "welshstew/hawkular-metrics-grafana:latest",
+            "ports": [
+              {
+                "name": "http",
+                "containerPort": 3000,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "KUBERNETES_NAMESPACE",
+                "valueFrom": {
+                  "fieldRef": {
+                    "apiVersion": "v1",
+                    "fieldPath": "metadata.namespace"
+                  }
+                }
+              },
+              {
+                "name": "GF_SERVER_ROOT_URL",
+                "value": "http://grafana-service-origin-metrics.rhel-cdk.10.1.2.2.xip.io"
+              },
+              {
+                "name": "GF_DATABASE_HOST",
+                "value": "mysql:3306"
+              },
+              {
+                "name": "GF_DATABASE_NAME",
+                "value": "grafana"
+              },
+              {
+                "name": "GF_DATABASE_PASSWORD",
+                "value": "admin"
+              },
+              {
+                "name": "GF_DATABASE_TYPE",
+                "value": "mysql"
+              },
+              {
+                "name": "GF_DATABASE_USER",
+                "value": "admin"
+              }
+            ],
+            "resources": {
+              "limits": {
+                "cpu": "400m",
+                "memory": "1Gi"
+              },
+              "requests": {
+                "cpu": "200m",
+                "memory": "512Mi"
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "grafana-token-x1r0e",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "Always",
+            "securityContext": {
+              "capabilities": {
+                "drop": [
+                  "KILL",
+                  "MKNOD",
+                  "SYS_CHROOT"
+                ]
+              },
+              "privileged": false,
+              "seLinuxOptions": {
+                "level": "s0:c8,c7"
+              }
+            }
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "host": "rhel-cdk",
+        "serviceAccountName": "grafana",
+        "serviceAccount": "grafana",
+        "nodeName": "rhel-cdk",
+        "securityContext": {
+          "seLinuxOptions": {
+            "level": "s0:c8,c7"
+          }
+        },
+        "imagePullSecrets": [
+          {
+            "name": "grafana-dockercfg-yz7xh"
+          }
+        ]
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Ready",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2016-08-31T20:22:42Z"
+          }
+        ],
+        "hostIP": "10.0.2.15",
+        "podIP": "172.17.0.2",
+        "startTime": "2016-08-31T20:22:33Z",
+        "containerStatuses": [
+          {
+            "name": "metrics-grafana",
+            "state": {
+              "running": {
+                "startedAt": "2016-08-31T20:22:41Z"
+              }
+            },
+            "lastState": {},
+            "ready": true,
+            "restartCount": 0,
+            "image": "welshstew/hawkular-metrics-grafana:latest",
+            "imageID": "docker://4a8da7a42cb391259da1928c58efbc83898aeaf40a024f4b3fed8894b523c4ae",
+            "containerID": "docker://639b9951b7abfb4bd5974e71ffd10d061ff74624c41afe208164f3f4f26add76"
+          }
+        ]
+      }
+    },
+    {
+      "metadata": {
+        "name": "mysql-1-4e15f",
+        "generateName": "mysql-1-",
+        "namespace": "origin-metrics",
+        "selfLink": "/api/v1/namespaces/origin-metrics/pods/mysql-1-4e15f",
+        "uid": "4a79191e-6fb8-11e6-b815-525400825485",
+        "resourceVersion": "15048",
+        "creationTimestamp": "2016-08-31T20:19:59Z",
+        "labels": {
+          "deployment": "mysql-1",
+          "deploymentconfig": "mysql",
+          "name": "mysql"
+        },
+        "annotations": {
+          "kubernetes.io/created-by": "{\"kind\":\"SerializedReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"ReplicationController\",\"namespace\":\"origin-metrics\",\"name\":\"mysql-1\",\"uid\":\"487f30b2-6fb5-11e6-b815-525400825485\",\"apiVersion\":\"v1\",\"resourceVersion\":\"5554\"}}\n",
+          "openshift.io/deployment-config.latest-version": "1",
+          "openshift.io/deployment-config.name": "mysql",
+          "openshift.io/deployment.name": "mysql-1",
+          "openshift.io/generated-by": "OpenShiftNewApp",
+          "openshift.io/scc": "anyuid"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "mysql-data",
+            "persistentVolumeClaim": {
+              "claimName": "mysql"
+            }
+          },
+          {
+            "name": "default-token-qefio",
+            "secret": {
+              "secretName": "default-token-qefio"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "mysql",
+            "image": "registry.access.redhat.com/rhscl/mysql-56-rhel7@sha256:ec43bf4535d16f8d66890559e9851472f3de46e808e25afd4caca0dea2eb6260",
+            "ports": [
+              {
+                "containerPort": 3306,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "MYSQL_USER",
+                "value": "admin"
+              },
+              {
+                "name": "MYSQL_PASSWORD",
+                "value": "admin"
+              },
+              {
+                "name": "MYSQL_DATABASE",
+                "value": "grafana"
+              }
+            ],
+            "resources": {
+              "limits": {
+                "memory": "512Mi"
+              },
+              "requests": {
+                "memory": "512Mi"
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "mysql-data",
+                "mountPath": "/var/lib/mysql/data"
+              },
+              {
+                "name": "default-token-qefio",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "livenessProbe": {
+              "tcpSocket": {
+                "port": 3306
+              },
+              "initialDelaySeconds": 30,
+              "timeoutSeconds": 1,
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "failureThreshold": 3
+            },
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "/bin/sh",
+                  "-i",
+                  "-c",
+                  "MYSQL_PWD=\"$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'"
+                ]
+              },
+              "initialDelaySeconds": 5,
+              "timeoutSeconds": 1,
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "failureThreshold": 3
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "IfNotPresent",
+            "securityContext": {
+              "capabilities": {
+                "drop": [
+                  "KILL",
+                  "MKNOD",
+                  "SYS_CHROOT"
+                ]
+              },
+              "privileged": false,
+              "seLinuxOptions": {
+                "level": "s0:c8,c7"
+              }
+            }
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "host": "rhel-cdk",
+        "serviceAccountName": "default",
+        "serviceAccount": "default",
+        "nodeName": "rhel-cdk",
+        "securityContext": {
+          "seLinuxOptions": {
+            "level": "s0:c8,c7"
+          }
+        },
+        "imagePullSecrets": [
+          {
+            "name": "default-dockercfg-zrjt3"
+          }
+        ]
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Ready",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2016-08-31T20:20:09Z"
+          }
+        ],
+        "hostIP": "10.0.2.15",
+        "podIP": "172.17.0.8",
+        "startTime": "2016-08-31T20:19:59Z",
+        "containerStatuses": [
+          {
+            "name": "mysql",
+            "state": {
+              "running": {
+                "startedAt": "2016-08-31T20:20:02Z"
+              }
+            },
+            "lastState": {},
+            "ready": true,
+            "restartCount": 0,
+            "image": "registry.access.redhat.com/rhscl/mysql-56-rhel7@sha256:ec43bf4535d16f8d66890559e9851472f3de46e808e25afd4caca0dea2eb6260",
+            "imageID": "docker://0a9bc3346be992152ac37a329aeea259cc59b67a0ed2853550a813b6b138d933",
+            "containerID": "docker://23176b149229e959e9f7469ee8e1da4ce69ce9ff973cb8458d08e739760bd43b"
+          }
+        ]
+      }
+    }
+  ]
+}
